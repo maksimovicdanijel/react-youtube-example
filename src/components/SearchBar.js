@@ -5,6 +5,8 @@ class SearchBar extends Component {
     super(props);
 
     this.state = this.getDefaultState();
+
+    this.onSearchSubmit = props.onSearchSubmit ? props.onSearchSubmit : () => {};
   }
 
   getDefaultState() {
@@ -17,8 +19,7 @@ class SearchBar extends Component {
   handleSearchSubmit = (e) => {
     e.preventDefault();
 
-    alert('Searching');
-
+    this.onSearchSubmit(this.state.searchValue);
     this.setState(this.getDefaultState());
   }
 
