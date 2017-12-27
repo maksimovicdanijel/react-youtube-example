@@ -11,11 +11,11 @@ class VideoList extends Component {
     }
 
     const videoComponents = videos.map((video) => {
-      const { title, thumbnails } = video.snippet;
-      const thumbnail = thumbnails.medium.url;
+      const { title, thumbnails, publishedAt, channelTitle } = video.snippet;
+      const thumbnail = thumbnails.high.url;
       const id = video.id.videoId;
 
-      return <VideoListItem key={id} title={title} thumbnail={thumbnail} />;
+      return <VideoListItem key={id} title={title} thumbnail={thumbnail} publishedAt={publishedAt} channelTitle={channelTitle} />;
     });
 
     return videoComponents;

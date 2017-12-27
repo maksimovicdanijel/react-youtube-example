@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import PrimaryButton from './buttons/PrimaryButton';
+
 class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +42,7 @@ class SearchBar extends Component {
           <div className="input-group">
             <input onChange={this.onChange} value={this.state.searchValue} type="text" className="form-control search-bar__input" placeholder="Search video..." />
             <span className="input-group-btn">
-              <button disabled={!this.state.canSubmit} className="btn btn-primary">Search</button>
+              <PrimaryButton disabled={!this.state.canSubmit}>Search</PrimaryButton>
             </span>
           </div>
         </form>

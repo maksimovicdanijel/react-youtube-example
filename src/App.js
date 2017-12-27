@@ -6,6 +6,7 @@ import youtubeService from './services/YoutubeService';
 
 import SearchBar from './components/SearchBar';
 import VideoList from './components/VideoList';
+import VideoDetails from './components/VideoDetails';
 
 class App extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class App extends Component {
 
     this.state = {
       searchedVideos: [],
+      selectedVideo: null,
       loading: false
     };
   }
@@ -30,9 +32,12 @@ class App extends Component {
     youtubeService.searchVideos(term)
     
       .then(data => {
+        let selectedVideo = data.length ? data[0] : null;
+
         this.setState({
           searchedVideos: data,
-          loading: false
+          loading: false,
+          selectedVideo
         });
       });
   }
@@ -41,14 +46,40 @@ class App extends Component {
     return this.state.loading ? 'Loading...' : <VideoList videos={this.state.searchedVideos} />;
   }
 
+  renderVideoDetails = () => {
+    if (this.state.loading) {
+      return 'Loading...';
+    }
+
+    if (! this.state.selectedVideo) {
+      return 'No video selected';
+    }
+
+    let title = this.state.selectedVideo.snippet.title;
+    let channelName = this.state.selectedVideo.snippet.channelTitle;
+
+    return <VideoDetails title={title} channelName={channelName} />;
+  }
+
   render() {
     return (
       <div className="App">
         <div className="container">
           <h2>Youtube kind of...</h2>
-          <SearchBar onSearchSubmit={this.onSearchSubmit} />
 
-          { this.renderVideos() }
+          <div className="search-bar-container" style={{marginBottom: "40px"}}>
+            <SearchBar onSearchSubmit={this.onSearchSubmit} />
+          </div>
+
+          <div className="row">
+            <div className="col-sm-8">
+              {this.renderVideoDetails()}
+            </div>
+              
+            <div className="col-sm-4">
+              { this.renderVideos() }
+            </div>
+          </div>
         </div>
       </div>
     );
