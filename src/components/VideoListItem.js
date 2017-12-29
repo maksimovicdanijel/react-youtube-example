@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 import moment from 'moment';
 
-const VideoListItem = ({ thumbnail, title, publishedAt, channelTitle }) => {
-  const timeAgo = moment(publishedAt).fromNow();
+class VideoListItem extends Component {
+  onVideoClick = () => {
+    if (this.props.onVideoClick) {
+      this.props.onVideoClick(this.props.id);
+    }
+  }
 
-  return (
-    <div className="video-list-item">
-      <div className="video-list-item__thumbnail">
-        <img src={thumbnail} alt={title}/>
-      </div>
+  render() {
+    const { thumbnail, title, publishedAt, channelTitle } = this.props;
 
-      <div className="video-list-item__title">
-        <h5>{title}</h5>
-        <h6>{channelTitle}, {timeAgo}</h6>
+    const timeAgo = moment(publishedAt).fromNow();
+  
+    return (
+      <div className="video-list-item" onClick={this.onVideoClick}>
+        <div className="video-list-item__thumbnail">
+          <img src={thumbnail} alt={title}/>
+        </div>
+  
+        <div className="video-list-item__title">
+          <h5>{title}</h5>
+          <h6>{channelTitle}, {timeAgo}</h6>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default VideoListItem;

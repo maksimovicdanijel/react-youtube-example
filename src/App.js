@@ -43,7 +43,17 @@ class App extends Component {
   }
 
   renderVideos = () => {
-    return this.state.loading ? 'Loading...' : <VideoList videos={this.state.searchedVideos} />;
+    return this.state.loading ? 'Loading...' : <VideoList onVideoClick={this.onVideoClick} videos={this.state.searchedVideos} />;
+  }
+
+  onVideoClick = (id) => {
+    const video = this.state.searchedVideos.find((video) => {
+      return video.id.videoId === id;
+    });
+
+    console.log(video, id);
+
+    this.setState({selectedVideo: video});
   }
 
   renderVideoDetails = () => {
@@ -57,8 +67,9 @@ class App extends Component {
 
     let title = this.state.selectedVideo.snippet.title;
     let channelName = this.state.selectedVideo.snippet.channelTitle;
+    let videoId = this.state.selectedVideo.id.videoId;
 
-    return <VideoDetails title={title} channelName={channelName} />;
+    return <VideoDetails videoId={videoId} title={title} channelName={channelName} />;
   }
 
   render() {

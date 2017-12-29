@@ -3,6 +3,12 @@ import React, { Component } from 'react';
 import VideoListItem from './VideoListItem';
 
 class VideoList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onParentVideoClick = this.props.onVideoClick ? this.props.onVideoClick : () => {};
+  }
+
   renderItems() {
     const videos = this.props.videos;
 
@@ -15,11 +21,15 @@ class VideoList extends Component {
       const thumbnail = thumbnails.high.url;
       const id = video.id.videoId;
 
-      return <VideoListItem key={id} title={title} thumbnail={thumbnail} publishedAt={publishedAt} channelTitle={channelTitle} />;
+      return <VideoListItem onVideoClick={this.onVideoClick} key={id} id={id} title={title} thumbnail={thumbnail} publishedAt={publishedAt} channelTitle={channelTitle} />;
     });
 
     return videoComponents;
   }
+
+  onVideoClick = (id) => {
+    this.onParentVideoClick(id);
+  };
 
   render() {
     return (
