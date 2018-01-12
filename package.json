@@ -8,7 +8,11 @@
     "moment": "^2.20.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
     "react-scripts": "1.0.17",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "seamless-immutable": "^7.1.2",
     "youtube-api-search": "0.0.5"
   },
   "scripts": {

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
+import { searchVideos } from '../store/videos/actions';
 
 import PrimaryButton from './buttons/PrimaryButton';
 
@@ -21,7 +23,9 @@ class SearchBar extends Component {
   handleSearchSubmit = (e) => {
     e.preventDefault();
 
-    this.onSearchSubmit(this.state.searchValue);
+    const { dispatch } = this.props;
+
+    dispatch(searchVideos(this.state.searchValue));
     this.setState(this.getDefaultState());
   }
 
@@ -50,5 +54,7 @@ class SearchBar extends Component {
     );
   }
 }
+
+SearchBar = connect()(SearchBar);
 
 export default SearchBar;
